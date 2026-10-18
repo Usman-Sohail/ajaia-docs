@@ -106,7 +106,7 @@ The limit is 1 MB of UTF-8 text. DOCX and PDF aren't supported.
 - Sharing reveals whether an email has an account. That's inherent to "show a useful message if the recipient doesn't exist".
 - If a user changes their email in Supabase, `profiles.email` isn't updated (there's no update trigger).
 - No password reset flow in the UI.
-- The editor bundle is about 310 KB gzipped and isn't code-split yet.
+- The editor (TipTap/ProseMirror) is lazy-loaded after sign-in. Initial JS is about 158 KB gzipped, and the editor chunk adds about 152 KB.
 - Supabase free-tier projects pause after a week of inactivity.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for design details and [AI_WORKFLOW.md](AI_WORKFLOW.md) for how this was built.

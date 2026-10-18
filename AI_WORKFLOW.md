@@ -79,4 +79,4 @@ No other AI tools were used.
 - Only Chromium was tested. Safari and Firefox weren't.
 - Concurrency was tested with a simulated second writer (admin client), not two simultaneous browser sessions.
 - The email-confirmation sign-up flow wasn't tested end to end, because there was no test inbox. The reviewer accounts are pre-confirmed via the admin API.
-- No load or performance testing. The editor bundle is about 310 KB gzipped and isn't code-split.
+- No load or performance testing. The editor is lazy-loaded (about 158 KB gzipped initial JS, plus a 152 KB editor chunk).

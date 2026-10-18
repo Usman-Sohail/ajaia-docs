@@ -50,4 +50,4 @@ Manual browser verification is listed in [AI_WORKFLOW.md](AI_WORKFLOW.md#how-cor
 - No password reset UI. Changes to a user's email aren't synced into `profiles`.
 - Sharing confirms whether an email has an account (inherent to the required "useful message" for unknown recipients).
 - Markdown tables are flattened to text rows. Headings deeper than H3 become H3. No DOCX or PDF import.
-- Tested in Chromium only. The bundle isn't code-split (about 310 KB gzipped).
+- Tested in Chromium only.
