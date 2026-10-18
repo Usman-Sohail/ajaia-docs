@@ -60,8 +60,7 @@ The schema, RLS policies, triggers, and the `share_document` RPC are all in [`su
 ### Authentication and test accounts
 
 - **Self sign-up** works from the login page. Supabase hosted projects have *Confirm email* enabled by default, so new users must click the emailed link before signing in, and the built-in mailer is heavily rate-limited. For frictionless review, either turn off Authentication → Providers → Email → *Confirm email*, or use the seeded accounts below.
-- **Reviewer accounts:** `npm run seed:reviewers` creates or resets two confirmed accounts, `reviewer1@example.com` and `reviewer2@example.com`, with the password from `REVIEWER_PASSWORD`. It also creates a *Welcome to Ajaia Docs* document owned by reviewer 1 and shared with reviewer 2 as an editor. The script is idempotent. Credentials are deliberately **not** committed. They're given to reviewers out of band (see SUBMISSION.md).
-- To test the unrelated-user case, sign up a third account (or add one in Supabase → Authentication → Users → *Add user* with *Auto confirm*).
+- **Reviewer accounts:** `npm run seed:reviewers` creates or resets three confirmed accounts, `reviewer1@example.com`, `reviewer2@example.com` and `reviewer3@example.com` (nothing shared with it, for the unrelated-user check), with the password from `REVIEWER_PASSWORD`. It also creates a *Welcome to Ajaia Docs* document owned by reviewer 1 and shared with reviewer 2 as an editor. The script is idempotent. Credentials are deliberately **not** committed. They're given to reviewers out of band (see SUBMISSION.md).
 - In Supabase → Authentication → URL Configuration, set **Site URL** to the deployed URL so confirmation emails link to the right place.
 
 ## Commands
@@ -75,7 +74,7 @@ The schema, RLS policies, triggers, and the `share_document` RPC are all in [`su
 | `npm test` | Unit and component tests (Vitest + jsdom). No network needed. |
 | `npm run test:db` | **RLS integration tests against the real Supabase project.** They create and then delete three throwaway users. Requires `SUPABASE_SECRET_KEY`. |
 | `npm run db:push` | Apply migrations |
-| `npm run seed:reviewers` | Create or reset the reviewer accounts and the sample doc |
+| `npm run seed:reviewers` | Create or reset the three reviewer accounts and the sample doc |
 
 ## Testing
 

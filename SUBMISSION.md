@@ -14,16 +14,17 @@
 
 ## Reviewer access
 
-Two pre-confirmed accounts (created with `npm run seed:reviewers`):
+Three pre-confirmed accounts (created with `npm run seed:reviewers`):
 
 | Account | Email | Starts with |
 |---|---|---|
 | Reviewer 1 | `reviewer1@example.com` | Owns "Welcome to Ajaia Docs", shared with reviewer 2 as an editor |
 | Reviewer 2 | `reviewer2@example.com` | Sees that document under *Shared with me* |
+| Reviewer 3 | `reviewer3@example.com` | Nothing shared, so use it to confirm an unrelated user is denied |
 
 **Password:** provided separately with the submission. It's intentionally not committed to the repository.
 
-To test the unrelated-user case, register a third account from the sign-in page. Then paste the URL of a document you didn't share with it (e.g. `/d/<id>` copied from reviewer 1's address bar). It shows *Document unavailable*.
+To test the unrelated-user case, sign in as reviewer 3 and paste the URL of a document it wasn't given access to (e.g. `/d/<id>` copied from reviewer 1's address bar). It shows *Document unavailable*.
 
 ### Suggested 5-minute review path
 1. Sign in as reviewer 1, open *Welcome to Ajaia Docs*, format some text, and refresh. The formatting persists.

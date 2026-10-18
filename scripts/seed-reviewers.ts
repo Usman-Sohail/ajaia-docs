@@ -1,4 +1,4 @@
-// Creates (or resets) two confirmed reviewer accounts and a shared sample document.
+// Creates (or resets) three confirmed reviewer accounts and a sample document shared with reviewer 2.
 // Usage: npm run seed:reviewers   (requires SUPABASE_SECRET_KEY + REVIEWER_PASSWORD in .env.local)
 import { createClient } from '@supabase/supabase-js'
 import { loadLocalEnv, requireEnv } from './env'
@@ -13,6 +13,8 @@ if (password.length < 8) throw new Error('REVIEWER_PASSWORD must be at least 8 c
 const REVIEWERS = [
   process.env.REVIEWER_1_EMAIL ?? 'reviewer1@example.com',
   process.env.REVIEWER_2_EMAIL ?? 'reviewer2@example.com',
+  // Nothing is shared with reviewer 3: use it to confirm an unrelated user is denied access.
+  process.env.REVIEWER_3_EMAIL ?? 'reviewer3@example.com',
 ]
 
 const admin = createClient(url, secretKey, { auth: { persistSession: false, autoRefreshToken: false } })
