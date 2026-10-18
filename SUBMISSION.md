@@ -4,7 +4,7 @@
 |---|---|
 | Source code | https://github.com/Usman-Sohail/ajaia-docs |
 | Live product | **https://ajaia-docs-dusky.vercel.app** (Vercel, auto-deployed from `main`; backend on Supabase) |
-| Walkthrough video | See [`WALKTHROUGH_URL.txt`](WALKTHROUGH_URL.txt) (**not yet recorded**) |
+| Walkthrough video | **https://youtu.be/ktIlMqvjuY8** (YouTube, unlisted; also in [`WALKTHROUGH_URL.txt`](WALKTHROUGH_URL.txt)) |
 | README (setup, env vars, commands, deployment) | [`README.md`](README.md) |
 | Architecture notes | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
 | AI workflow note | [`AI_WORKFLOW.md`](AI_WORKFLOW.md) |
