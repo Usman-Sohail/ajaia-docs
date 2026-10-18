@@ -72,6 +72,8 @@ No other AI tools were used.
 - Typing and switching documents within the debounce window lands the edit in the correct document (v12). The other document is untouched.
 - After downgrading to viewer: the sidebar shows *View only*, `contenteditable=false`, and the toolbar is disabled.
 - At 390 px wide there's no horizontal overflow, and the slide-over sidebar works.
+- The **production build** was served with `vite preview`. Sign-in loads only the main chunk, the editor chunk lazy-loads, and a deep-link reload restores the document.
+- **Bundle and repo secret scans** compared every tracked file and every `dist/` asset against the real secret key, DB password, and reviewer password: 0 matches. The only `sb_secret_` string in the bundle is supabase-js's key-format check.
 
 ## Remaining uncertainties
 
