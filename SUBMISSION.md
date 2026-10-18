@@ -3,7 +3,7 @@
 | Item | Location / status |
 |---|---|
 | Source code | https://github.com/Usman-Sohail/ajaia-docs |
-| Live product | **PENDING VERIFICATION.** It will be added here once the deployed URL has been checked end to end. |
+| Live product | **https://ajaia-docs-dusky.vercel.app** (Vercel, auto-deployed from `main`; backend on Supabase) |
 | Walkthrough video | See [`WALKTHROUGH_URL.txt`](WALKTHROUGH_URL.txt) (**not yet recorded**) |
 | README (setup, env vars, commands, deployment) | [`README.md`](README.md) |
 | Architecture notes | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
@@ -36,12 +36,19 @@ To test the unrelated-user case, register a third account from the sign-in page.
 
 | Suite | Command | Result |
 |---|---|---|
-| Unit + component (jsdom) | `npm test` | **40 / 40 passed** |
+| Unit + component (jsdom) | `npm test` | **41 / 41 passed** |
 | RLS integration (live Supabase, real JWTs) | `npm run test:db` | **19 / 19 passed** |
 | Typecheck + production build | `npm run build` | **Succeeds** |
 | Lint | `npm run lint` | 0 errors, 4 warnings (explained in AI_WORKFLOW.md) |
 
-Manual browser verification is listed in [AI_WORKFLOW.md](AI_WORKFLOW.md#how-correctness-was-verified).
+### Verified on the live URL (Playwright, Chromium)
+- Opening `/d/<id>` signed-out redirects to sign-in, which confirms the SPA rewrite and the auth guard.
+- Owner: create, rename, and **bold** text, then a hard reload. The same URL keeps its title and formatting.
+- A `.txt` import becomes a persisted, editable document that survives a reload.
+- Sharing as *Can view* works: the second user sees it under *Shared with me · View only*, and the editor isn't editable.
+- **A third, unrelated user opening the document URL gets *Document unavailable*.**
+
+The full manual verification list is in [AI_WORKFLOW.md](AI_WORKFLOW.md#how-correctness-was-verified).
 
 ## Incomplete features / known issues
 

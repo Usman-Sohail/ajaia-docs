@@ -43,12 +43,15 @@ No other AI tools were used.
 | Lint warnings | `set-state-in-effect` in `DocumentView` was fixed. Four warnings remain and are deliberately left alone: a `react(refs)` false positive (refs are read only inside the async save callback), one `set-state-in-effect` on the standard fetch-on-mount pattern, and two `only-export-components` on context+hook files. Lint wasn't disabled. |
 | A test broken by the friendlier network-error mapping | Its sample error ("Network request failed") now correctly maps to the friendly message. The test was changed to use a non-network error, since its intent is "persistence errors reach the user". |
 | A suspected autosave bug in a screenshot ("Unsaved changes" after 2 s) | Measured rather than "fixed": 800 ms debounce, then about 475 ms round trip to the Sydney project, then *Saved*. The lingering status was a correct serialized follow-up save. No code change. |
+| My own production check script failed at "reload" | Root cause: `waitForURL(/\/d\//)` matched instantly because the page was already on a `/d/…` URL, so the rename and typing hit the previous document. The app was correct: the owner may rename, and the typed text was saved to that document (v13) despite navigating mid-typing. The script was fixed to wait for the new document's own state. |
+| An empty `VITE_SUPABASE_PUBLISHABLE_KEY` in `.env.local` | This exposed a real bug. `key ?? 'missing-key'` doesn't catch `''`, so `createClient` threw at import time, which would mean a blank page instead of the *Configuration required* screen. Empty or whitespace values are now treated as missing, and that was confirmed in the browser. |
+| A `.txt` file's final newline | Became a stray trailing hard break (seen in production). Trailing newlines are now trimmed before conversion, with a regression test. |
 | A jsdom crash (`elementFromPoint`) in editor tests | Fixed with a test-environment shim in `src/test/setup.ts`, not by changing app code. |
 
 ## How correctness was verified
 
 **Automated**
-- `npm test`: **40/40 passing** across 6 files.
+- `npm test`: **41/41 passing** across 6 files.
   - Autosave: debounce, no concurrent saves or stale overwrites, never "Saved" on failure, retry, flush, conflict halt and resume, synchronous throw.
   - Import: validation, UTF-8 and binary checks, Markdown fidelity, HTML and `javascript:` neutralisation, schema validity.
   - UI: import error states, the save indicator, editor formatting round-trip, read-only mode.
@@ -61,7 +64,14 @@ No other AI tools were used.
   - Stale-version writes are rejected, `version` can't be tampered with, and revocation is immediate.
 - `npm run build` (typecheck + Vite build) succeeds. `npm run lint` shows 0 errors and 4 warnings (explained above).
 
-**Manual, via Playwright against the real database** (local dev server, Chromium). Screenshots are in `docs/screenshots/`.
+**On the deployed URL** (`https://ajaia-docs-dusky.vercel.app`, Playwright)
+- A signed-out deep link redirects to sign-in (SPA rewrite).
+- Create, rename, and bold, then a hard reload: everything persists.
+- `.txt` import persists.
+- Sharing as a viewer gives the second user a read-only view.
+- **A third user gets *Document unavailable*.**
+
+**Manual, via Playwright against the real database (local dev server)** (local dev server, Chromium). Screenshots are in `docs/screenshots/`.
 - Sign-in and redirects. Create, rename, and format (H1, bold, underline, list). Undo.
 - **A hard reload preserves the title and all formatting.**
 - `.md` import produces an open, persisted document with structure preserved, `<script>` rendered as inert text, and inline HTML dropped. `.txt` with an empty file shows an error toast and creates no document.
@@ -77,7 +87,6 @@ No other AI tools were used.
 
 ## Remaining uncertainties
 
-- **The deployed URL check is tracked in SUBMISSION.md.** The local checks above ran against the same production database.
 - Only Chromium was tested. Safari and Firefox weren't.
 - Concurrency was tested with a simulated second writer (admin client), not two simultaneous browser sessions.
 - The email-confirmation sign-up flow wasn't tested end to end, because there was no test inbox. The reviewer accounts are pre-confirmed via the admin API.

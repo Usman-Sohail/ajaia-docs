@@ -70,6 +70,13 @@ describe('textToDoc', () => {
   })
 })
 
+describe('textToDoc trailing newline', () => {
+  it('does not turn the final newline of a file into a hard break', () => {
+    const doc = textToDoc('Last line\n')
+    expect(doc.content).toEqual([{ type: 'paragraph', content: [{ type: 'text', text: 'Last line' }] }])
+  })
+})
+
 describe('markdownToDoc', () => {
   it('preserves headings, lists and inline formatting', () => {
     const doc = markdownToDoc(

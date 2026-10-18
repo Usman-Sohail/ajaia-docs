@@ -2,7 +2,8 @@ import type { JSONContent } from '@tiptap/react'
 
 /** Plain text → paragraphs (blank-line separated) with hard breaks for single newlines. */
 export function textToDoc(text: string): JSONContent {
-  const blocks = text.replace(/\r\n?/g, '\n').split(/\n{2,}/)
+  // Trailing newlines (most files end with one) would otherwise become stray hard breaks.
+  const blocks = text.replace(/\r\n?/g, '\n').replace(/\n+$/, '').split(/\n{2,}/)
   const content: JSONContent[] = blocks
     .filter((block) => block.trim())
     .map((block) => {
