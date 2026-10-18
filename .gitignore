@@ -28,3 +28,6 @@ supabase/.temp
 supabase/.branches
 .env
 .vercel
+
+# Browser automation artefacts
+.playwright-mcp

@@ -46,9 +46,9 @@ describe('ImportButton', () => {
 
   it('surfaces persistence failures from onImport', async () => {
     const { onImport, user, input } = setup()
-    onImport.mockRejectedValueOnce(new Error('Network request failed'))
+    onImport.mockRejectedValueOnce(new Error('new row violates row-level security policy'))
     await user.upload(input, new File(['hello'], 'notes.txt', { type: 'text/plain' }))
 
-    expect(await screen.findByRole('alert')).toHaveTextContent('Network request failed')
+    expect(await screen.findByRole('alert')).toHaveTextContent('new row violates row-level security policy')
   })
 })

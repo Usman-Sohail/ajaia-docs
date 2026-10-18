@@ -1,0 +1,5 @@
+Weekly sync — notes
+Attendees: Product, Engineering
+
+Decisions:
+Ship sharing first, then import.
